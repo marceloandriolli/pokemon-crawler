@@ -39,13 +39,13 @@ def get_pagineted_urls(base_url: str):
     for url in range(total_urls):
         if url != (total_urls - 1):
             yield f'{base_url}?limit={limit}&offset={offset}'
-            offset += 200
+            offset += limit
         else:
             yield f'{base_url}?limit={last_limit}&offset={offset}'
 
 
 async def get_details_urls(client, url):
-    logger.info('Geting pokemon details urls from {url} started')
+    logger.info(f'Geting pokemon details urls from {url} started')
     response = await client.request(method='GET', url=url)
     response.raise_for_status()
     response_json = await response.json()
